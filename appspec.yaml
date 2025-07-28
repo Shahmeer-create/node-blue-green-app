@@ -3,7 +3,7 @@ Resources:
   - TargetService:
       Type: AWS::ECS::Service
       Properties:
-        TaskDefinition: <replace-with-green-task-definition-arn>
+        TaskDefinition: arn:aws:ecs:us-east-1:814698426902:task-definition/task-1:1
         LoadBalancerInfo:
           ContainerName: "my-node-app"
           ContainerPort: 3000
