@@ -1,0 +1,23 @@
+version: 0.2
+phases:
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR...
+      - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 814698426902.dkr.ecr.ap-south-1.amazonaws.com
+      - IMAGE_TAG=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
+  build:
+    commands:
+      - echo Build started on `date`
+      - echo Building the Docker image...
+      - docker build -t node-blue-green-app:$IMAGE_TAG .
+      - docker tag node-blue-green-app:$IMAGE_TAG 814698426902.dkr.ecr.ap-south-1.amazonaws.com/node-blue-green-app:$IMAGE_TAG
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - docker push 814698426902.dkr.ecr.ap-south-1.amazonaws.com/node-blue-green-app:$IMAGE_TAG
+      - echo Writing image definitions...
+      - printf '[{"name":"container-1","imageUri":"814698426902.dkr.ecr.ap-south-1.amazonaws.com/node-blue-green-app:%s"}]' $IMAGE_TAG > imagedefinitions.json
+artifacts:
+  files:
+    - imagedefinitions.json
+    - appspec.yml
