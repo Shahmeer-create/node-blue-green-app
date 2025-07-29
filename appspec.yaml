@@ -5,5 +5,5 @@ Resources:
       Properties:
         TaskDefinition: arn:aws:ecs:us-east-1:814698426902:task-definition/task-1:1
         LoadBalancerInfo:
-          ContainerName: "my-node-app"
+          ContainerName: "conatainer-1"
           ContainerPort: 3000
