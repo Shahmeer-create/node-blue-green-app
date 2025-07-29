@@ -17,7 +17,7 @@ phases:
       - echo Build completed on `date`
       - docker push 814698426902.dkr.ecr.us-east-1.amazonaws.com/node-blue-green-app:$IMAGE_TAG
       - echo Writing image definitions...
-      - printf '[{"name":"node-app-container","imageUri":"814698426902.dkr.ecr.us-east-1.amazonaws.com/node-blue-green-app:%s"}]' $IMAGE_TAG > imagedefinitions.json
+      - printf '[{"name":"conatainer-1","imageUri":"814698426902.dkr.ecr.us-east-1.amazonaws.com/node-blue-green-app:%s"}]' $IMAGE_TAG > imagedefinitions.json
 
 artifacts:
   files:
